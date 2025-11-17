@@ -91,5 +91,5 @@ app.get('/', (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`IFRS18 prototype server running on http://localhost:${PORT}`);
+ console.log(`IFRS18 prototype running on port ${PORT}`);
 });
