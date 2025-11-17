@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Protótipo IFRS 18 - Identificação MDPM</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <main class="container">
+
+    <header>
+      <h1>Protótipo: Identificação de MDPM (IFRS 18)</h1>
+      <p class="subtitle">
+        Árvore de decisão interativa — responde se a métrica é MDPM e salva a análise.
+      </p>
+
+      <div class="mode-toggle">
+        <label for="modeSelect">Modo de Visualização:</label>
+        <select id="modeSelect">
+          <option value="executive">Executivo</option>
+          <option value="academic" selected>Acadêmico</option>
+        </select>
+      </div>
+    </header>
+
+    <section class="panel">
+
+      <!-- Empresa / Metadados -->
+      <div class="company-meta">
+        <label for="companyName">Nome da Empresa</label>
+        <input id="companyName" type="text" placeholder="Ex.: Empresa S.A.">
+
+        <label for="cvmCode">Código (CVM/ID)</label>
+        <input id="cvmCode" type="text" placeholder="Ex.: 12345">
+
+        <label for="reportPeriod">Período de Referência</label>
+        <input id="reportPeriod" type="text" placeholder="Ex.: 30/09/2025">
+
+        <label for="sector">Setor Econômico</label>
+        <input id="sector" type="text" placeholder="Ex.: Tecnologia">
+
+        <label for="auditor">Auditor Responsável</label>
+        <input id="auditor" type="text" placeholder="Ex.: Auditor Externo Ltda.">
+      </div>
+
+      <label for="metricName">Nome da métrica</label>
+      <input id="metricName" type="text" placeholder="Ex.: EBITDA Ajustado">
+
+      <div class="questions">
+
+        <div class="q">
+          <div class="q-title"
+            data-expl="A métrica envolve contas de resultados (receitas/despesas)? IFRS 18 define MDPMs como subtotais de resultado que são usados para comunicar a visão da administração (IFRS 18:118-119).">
+            1) A métrica é um subtotal de receitas e despesas?
+          </div>
+          <div class="hint small">Ex: Lucro Operacional Ajustado • NÃO: métricas operacionais (ex.: churn)</div>
+          <div class="q-controls">
+            <button data-q="q1" data-val="true" class="btn-yes">Sim</button>
+            <button data-q="q1" data-val="false" class="btn-no">Não</button>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="q-title"
+            data-expl="A métrica é utilizada publicamente pela administração (relatórios, releases, apresentações ao mercado)? (IFRS 18:122)">
+            2) A métrica é utilizada publicamente pela administração?
+          </div>
+          <div class="hint small">Ex.: Divulgação em conferência de resultados, release, site RI</div>
+          <div class="q-controls">
+            <button data-q="q2" data-val="true" class="btn-yes">Sim</button>
+            <button data-q="q2" data-val="false" class="btn-no">Não</button>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="q-title"
+            data-expl="A norma lista alguns subtotais IFRS que NÃO são MDPMs, mesmo que sejam usados externamente (IFRS 18: B21-B27). Exemplos: lucro bruto, lucro líquido.">
+            3) A métrica está na lista de subtotais EXCLUÍDOS pela IFRS 18?
+          </div>
+          <div class="hint small">Ex: Lucro Bruto, Lucro Líquido, EBIT</div>
+          <div class="q-controls">
+            <button data-q="q3" data-val="true" class="btn-yes">Sim</button>
+            <button data-q="q3" data-val="false" class="btn-no">Não</button>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="q-title"
+            data-expl="IFRS 18 presume que um subtotal usado externamente comunica a visão da administração; essa presunção pode ser refutada com evidência clara (IFRS 18:124).">
+            4) A presunção de que a métrica expressa a visão da administração pode ser refutada?
+          </div>
+          <div class="hint small">Ex.: métrica exigida por regulador e não usada internamente</div>
+          <div class="q-controls">
+            <button data-q="q4" data-val="true" class="btn-yes">Sim (presunção refutada)</button>
+            <button data-q="q4" data-val="false" class="btn-no">Não</button>
+          </div>
+        </div>
+
+      </div>
+
+      <label for="notes">Notas e Evidências (opcional)</label>
+      <textarea id="notes" placeholder="Ex.: Ajustes de EBITDA removem efeitos não recorrentes..."></textarea>
+
+      <div class="actions">
+        <button id="evaluateBtn" class="primary">Validar Métrica (Executar Árvore)</button>
+        <button id="generateBtn" class="primary" style="background:#0bbf7b">Gerar Nota (HTML)</button>
+        <button id="printBtn" class="primary" style="background:#0a86ff">Exportar PDF (Abrir e Imprimir)</button>
+        <button id="listBtn" class="secondary">Ver avaliações anteriores</button>
+      </div>
+
+      <div id="resultCard" class="result hidden">
+        <div id="resultTitle" class="result-title"></div>
+        <div id="resultReason" class="result-reason"></div>
+      </div>
+
+      <div id="subsList" class="list hidden">
+        <h3>Histórico de avaliações</h3>
+        <div id="subsContainer"></div>
+      </div>
+
+    </section>
+
+    <footer>
+      IFRS 18 — MDPM Prototype • Desenvolvido para fins acadêmicos e tecnológicos
+    </footer>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

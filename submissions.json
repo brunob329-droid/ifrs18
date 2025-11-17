@@ -1,0 +1,520 @@
+[
+  {
+    "id": 1,
+    "metricName": "EBITDA Ajustado",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": true,
+    "q4_presumptionRefutable": false,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A métrica está na lista de subtotais explicitamente excluídos pela IFRS 18 (Q3 = SIM)."
+    },
+    "timestamp": "2025-11-17T11:29:08.964Z"
+  },
+  {
+    "id": 2,
+    "metricName": "Lucro ajustado",
+    "q1_isSubtotal": false,
+    "q2_usedExternally": false,
+    "q3_isExcluded": false,
+    "q4_presumptionRefutable": true,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A métrica não é um subtotal de receitas e despesas (Q1 = NÃO)."
+    },
+    "timestamp": "2025-11-17T11:38:22.405Z"
+  },
+  {
+    "id": 3,
+    "metricName": "Lucro Operacional Ajustado",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": false,
+    "q4_presumptionRefutable": false,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": true,
+      "reason": "A métrica passou por todos os filtros e é classificada como MDPM; exige divulgação e reconciliação conforme IFRS 18."
+    },
+    "timestamp": "2025-11-17T11:44:37.245Z"
+  },
+  {
+    "id": 4,
+    "metricName": "EBITDA AJUSTADO",
+    "q1_isSubtotal": false,
+    "q2_usedExternally": true,
+    "q3_isExcluded": false,
+    "q4_presumptionRefutable": false,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A métrica não é um subtotal de receitas e despesas (Q1 = NÃO)."
+    },
+    "timestamp": "2025-11-17T12:19:40.636Z"
+  },
+  {
+    "id": 5,
+    "metricName": "EBITDA AJUSTADO",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": false,
+    "q4_presumptionRefutable": false,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": true,
+      "reason": "A métrica passou por todos os filtros e é classificada como MDPM; exige divulgação e reconciliação conforme IFRS 18."
+    },
+    "timestamp": "2025-11-17T12:19:47.151Z"
+  },
+  {
+    "id": 6,
+    "metricName": "jtjytjty",
+    "q1_isSubtotal": false,
+    "q2_usedExternally": false,
+    "q3_isExcluded": true,
+    "q4_presumptionRefutable": false,
+    "notes": "lului",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A métrica não é um subtotal de receitas e despesas (Q1 = NÃO)."
+    },
+    "timestamp": "2025-11-17T12:23:54.194Z"
+  },
+  {
+    "id": 7,
+    "metricName": "Lucro Bruto",
+    "q1_isSubtotal": false,
+    "q2_usedExternally": false,
+    "q3_isExcluded": true,
+    "q4_presumptionRefutable": false,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A métrica não é um subtotal de receitas e despesas (Q1 = NÃO)."
+    },
+    "timestamp": "2025-11-17T12:39:34.785Z"
+  },
+  {
+    "id": 8,
+    "metricName": "Lucro Bruto",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": false,
+    "q3_isExcluded": true,
+    "q4_presumptionRefutable": true,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A métrica não é divulgada em comunicações públicas externas (Q2 = NÃO)."
+    },
+    "timestamp": "2025-11-17T12:40:19.844Z"
+  },
+  {
+    "id": 9,
+    "metricName": "Lucro Bruto",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": false,
+    "q3_isExcluded": true,
+    "q4_presumptionRefutable": false,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A métrica não é divulgada em comunicações públicas externas (Q2 = NÃO)."
+    },
+    "timestamp": "2025-11-17T12:40:22.644Z"
+  },
+  {
+    "id": 10,
+    "metricName": "Lucro Bruto",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": false,
+    "q3_isExcluded": true,
+    "q4_presumptionRefutable": false,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A métrica não é divulgada em comunicações públicas externas (Q2 = NÃO)."
+    },
+    "timestamp": "2025-11-17T12:40:23.332Z"
+  },
+  {
+    "id": 11,
+    "metricName": "Lucro Bruto",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": true,
+    "q4_presumptionRefutable": false,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A métrica está na lista de subtotais explicitamente excluídos pela IFRS 18 (Q3 = SIM)."
+    },
+    "timestamp": "2025-11-17T12:40:29.413Z"
+  },
+  {
+    "id": 12,
+    "metricName": "Lucro liquido",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": true,
+    "q4_presumptionRefutable": false,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A métrica está na lista de subtotais explicitamente excluídos pela IFRS 18 (Q3 = SIM)."
+    },
+    "timestamp": "2025-11-17T12:40:37.919Z"
+  },
+  {
+    "id": 13,
+    "metricName": "Lucro liquido",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": true,
+    "q4_presumptionRefutable": false,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A métrica está na lista de subtotais explicitamente excluídos pela IFRS 18 (Q3 = SIM)."
+    },
+    "timestamp": "2025-11-17T12:40:38.631Z"
+  },
+  {
+    "id": 14,
+    "metricName": "ebitida",
+    "q1_isSubtotal": false,
+    "q2_usedExternally": true,
+    "q3_isExcluded": true,
+    "q4_presumptionRefutable": false,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A métrica não é um subtotal de receitas e despesas (Q1 = NÃO)."
+    },
+    "timestamp": "2025-11-17T12:40:49.181Z"
+  },
+  {
+    "id": 15,
+    "metricName": "ebitida",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": true,
+    "q4_presumptionRefutable": false,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A métrica está na lista de subtotais explicitamente excluídos pela IFRS 18 (Q3 = SIM)."
+    },
+    "timestamp": "2025-11-17T12:40:57.460Z"
+  },
+  {
+    "id": 16,
+    "metricName": "ebitida",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": true,
+    "q4_presumptionRefutable": false,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A métrica está na lista de subtotais explicitamente excluídos pela IFRS 18 (Q3 = SIM)."
+    },
+    "timestamp": "2025-11-17T12:40:59.148Z"
+  },
+  {
+    "id": 17,
+    "metricName": "ebitida",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": true,
+    "q4_presumptionRefutable": false,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A métrica está na lista de subtotais explicitamente excluídos pela IFRS 18 (Q3 = SIM)."
+    },
+    "timestamp": "2025-11-17T12:41:06.324Z"
+  },
+  {
+    "id": 18,
+    "metricName": "ebitda ajustado",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": true,
+    "q4_presumptionRefutable": false,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A métrica está na lista de subtotais explicitamente excluídos pela IFRS 18 (Q3 = SIM)."
+    },
+    "timestamp": "2025-11-17T12:41:21.643Z"
+  },
+  {
+    "id": 19,
+    "metricName": "ebitda ajustado",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": true,
+    "q4_presumptionRefutable": true,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A métrica está na lista de subtotais explicitamente excluídos pela IFRS 18 (Q3 = SIM)."
+    },
+    "timestamp": "2025-11-17T12:41:23.291Z"
+  },
+  {
+    "id": 20,
+    "metricName": "fasdasdadas",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": false,
+    "q4_presumptionRefutable": true,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A presunção de que a métrica comunica a visão da administração foi refutada (Q4 = SIM)."
+    },
+    "timestamp": "2025-11-17T12:41:28.388Z"
+  },
+  {
+    "id": 21,
+    "metricName": "fasdasdadas",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": false,
+    "q4_presumptionRefutable": true,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A presunção de que a métrica comunica a visão da administração foi refutada (Q4 = SIM)."
+    },
+    "timestamp": "2025-11-17T12:41:29.075Z"
+  },
+  {
+    "id": 22,
+    "metricName": "fasdasdadas",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": false,
+    "q4_presumptionRefutable": true,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A presunção de que a métrica comunica a visão da administração foi refutada (Q4 = SIM)."
+    },
+    "timestamp": "2025-11-17T12:41:30.260Z"
+  },
+  {
+    "id": 23,
+    "metricName": "fasdasdadas",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": false,
+    "q4_presumptionRefutable": false,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": true,
+      "reason": "A métrica passou por todos os filtros e é classificada como MDPM; exige divulgação e reconciliação conforme IFRS 18."
+    },
+    "timestamp": "2025-11-17T12:41:36.331Z"
+  },
+  {
+    "id": 24,
+    "metricName": "Ebtida ajustado",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": false,
+    "q4_presumptionRefutable": false,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": true,
+      "reason": "A métrica passou por todos os filtros e é classificada como MDPM; exige divulgação e reconciliação conforme IFRS 18."
+    },
+    "timestamp": "2025-11-17T12:41:52.836Z"
+  },
+  {
+    "id": 25,
+    "metricName": "Ebtida ajustado",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": false,
+    "q4_presumptionRefutable": false,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": true,
+      "reason": "A métrica passou por todos os filtros e é classificada como MDPM; exige divulgação e reconciliação conforme IFRS 18."
+    },
+    "timestamp": "2025-11-17T12:42:14.100Z"
+  },
+  {
+    "id": 26,
+    "metricName": "Ebtida ajustado",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": false,
+    "q4_presumptionRefutable": false,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": true,
+      "reason": "A métrica passou por todos os filtros e é classificada como MDPM; exige divulgação e reconciliação conforme IFRS 18."
+    },
+    "timestamp": "2025-11-17T12:42:14.604Z"
+  },
+  {
+    "id": 27,
+    "metricName": "fsdfsdfsdfsdfsdf",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": true,
+    "q4_presumptionRefutable": false,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A métrica está na lista de subtotais explicitamente excluídos pela IFRS 18 (Q3 = SIM)."
+    },
+    "timestamp": "2025-11-17T12:42:21.243Z"
+  },
+  {
+    "id": 28,
+    "metricName": "fsdfsdfsdfsdfsdf",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": false,
+    "q4_presumptionRefutable": true,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A presunção de que a métrica comunica a visão da administração foi refutada (Q4 = SIM)."
+    },
+    "timestamp": "2025-11-17T12:42:25.203Z"
+  },
+  {
+    "id": 29,
+    "metricName": "EBITIDA 2",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": true,
+    "q4_presumptionRefutable": true,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A métrica está na lista de subtotais explicitamente excluídos pela IFRS 18 (Q3 = SIM)."
+    },
+    "timestamp": "2025-11-17T13:11:24.187Z"
+  },
+  {
+    "id": 30,
+    "metricName": "EBITIDA 2",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": true,
+    "q4_presumptionRefutable": true,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A métrica está na lista de subtotais explicitamente excluídos pela IFRS 18 (Q3 = SIM)."
+    },
+    "timestamp": "2025-11-17T13:11:36.482Z"
+  },
+  {
+    "id": 31,
+    "metricName": "EBITIDAVXVD",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": true,
+    "q4_presumptionRefutable": true,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A métrica está na lista de subtotais explicitamente excluídos pela IFRS 18 (Q3 = SIM)."
+    },
+    "timestamp": "2025-11-17T13:11:42.921Z"
+  },
+  {
+    "id": 32,
+    "metricName": "LFASDASDASD",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": false,
+    "q4_presumptionRefutable": true,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A presunção de que a métrica comunica a visão da administração foi refutada (Q4 = SIM)."
+    },
+    "timestamp": "2025-11-17T13:11:50.999Z"
+  },
+  {
+    "id": 33,
+    "metricName": "LFASDASDASD",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": false,
+    "q4_presumptionRefutable": false,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": true,
+      "reason": "A métrica passou por todos os filtros e é classificada como MDPM; exige divulgação e reconciliação conforme IFRS 18."
+    },
+    "timestamp": "2025-11-17T13:12:01.752Z"
+  },
+  {
+    "id": 34,
+    "metricName": "EBITDA Ajustado",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": true,
+    "q4_presumptionRefutable": false,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A métrica está na lista de subtotais explicitamente excluídos pela IFRS 18 (Q3 = SIM)."
+    },
+    "timestamp": "2025-11-17T13:15:40.430Z"
+  },
+  {
+    "id": 35,
+    "metricName": "EBITDA Ajustado",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": true,
+    "q4_presumptionRefutable": true,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A métrica está na lista de subtotais explicitamente excluídos pela IFRS 18 (Q3 = SIM)."
+    },
+    "timestamp": "2025-11-17T13:15:42.689Z"
+  },
+  {
+    "id": 36,
+    "metricName": "EBITDA Ajustado",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": true,
+    "q4_presumptionRefutable": true,
+    "notes": "",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A métrica está na lista de subtotais explicitamente excluídos pela IFRS 18 (Q3 = SIM)."
+    },
+    "timestamp": "2025-11-17T13:15:44.155Z"
+  },
+  {
+    "id": 37,
+    "metricName": "EBITDA Ajustado",
+    "q1_isSubtotal": true,
+    "q2_usedExternally": true,
+    "q3_isExcluded": true,
+    "q4_presumptionRefutable": true,
+    "notes": "dadasdasdasdasdasdasdas",
+    "evaluation": {
+      "isMDPM": false,
+      "reason": "A métrica está na lista de subtotais explicitamente excluídos pela IFRS 18 (Q3 = SIM)."
+    },
+    "timestamp": "2025-11-17T13:18:51.101Z"
+  }
+]
