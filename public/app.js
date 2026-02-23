@@ -22,49 +22,74 @@
   const evaluateBtn = document.getElementById('evaluateBtn');
   const generateBtn = document.getElementById('generateBtn');
   const printBtn = document.getElementById('printBtn');
-  const listBtn = document.getElementById('listBtn');
   const resultCard = document.getElementById('resultCard');
   const resultTitle = document.getElementById('resultTitle');
   const resultReason = document.getElementById('resultReason');
   const auditStamp = document.getElementById('auditStamp');
+  const reconSection = document.getElementById('reconSection');
   const reconTable = document.getElementById('reconTable');
 
   let lastEntry = null;
 
-  // Lógica de seleção de botões Sim/Não
+  // Lógica de seleção de botões Sim/Não (CORRIGIDA para manter o estado visual azul)
   document.querySelectorAll('[data-q]').forEach(btn => {
     btn.addEventListener('click', (e) => {
       const q = e.target.getAttribute('data-q');
       const val = (e.target.getAttribute('data-val') === 'true');
+      
+      // Atualiza o estado lógico
       qState[q] = val;
       
+      // Atualiza o estado visual: remove 'active' de todos no mesmo grupo e adiciona no clicado
       const parent = e.target.closest('.q-controls');
       parent.querySelectorAll('button').forEach(b => b.classList.remove('active'));
       e.target.classList.add('active');
     });
   });
 
+  // Cálculo automático de IR na tabela de reconciliação
+  const adjValInput = document.getElementById('adjVal');
+  const adjTaxInput = document.getElementById('adjTax');
+  
+  if (adjValInput) {
+    adjValInput.addEventListener('input', (e) => {
+      const val = parseFloat(e.target.value) || 0;
+      if (adjTaxInput) {
+        adjTaxInput.value = (val * 0.34).toFixed(2);
+      }
+    });
+  }
+
   // Função para validar e enviar (Integrado com a Trilha de Auditoria)
   evaluateBtn.addEventListener('click', async () => {
     const metricName = metricInput.value.trim();
+    
+    // Validação básica
     if (!metricName || !companyNameInput.value) {
-      alert('Informe o nome da métrica e da empresa para auditoria.');
+      alert('Informe o nome da métrica e da empresa para iniciar a trilha de auditoria.');
+      return;
+    }
+    
+    if (qState.q1 === null || qState.q2 === null) {
+      alert('Por favor, responda às perguntas essenciais da árvore de decisão.');
       return;
     }
 
     // Auto-identificação de subtotais excluídos (Q3)
     if (excludedList.some(e => metricName.toLowerCase().includes(e))) {
       qState.q3 = true;
-      document.querySelector('[data-q="q3"][data-val="true"]').click();
+      const q3BtnYes = document.querySelector('[data-q="q3"][data-val="true"]');
+      if (q3BtnYes) q3BtnYes.click();
     }
 
     // Coleta de dados de reconciliação (§123)
-    const valorBruto = document.querySelector('#reconTable input[type="number"]')?.value || 0;
+    const valorBruto = adjValInput?.value || 0;
 
     const payload = {
       companyName: companyNameInput.value,
       cvmCode: cvmCodeInput.value,
       reportPeriod: reportPeriodInput.value,
+      sector: sectorInput.value,
       auditor: auditorInput.value,
       metricName: metricName,
       q1_isSubtotal: qState.q1,
@@ -89,7 +114,7 @@
       }
     } catch (err) {
       console.error('Erro na validação:', err);
-      alert('Erro ao conectar com o servidor de auditoria.');
+      alert('Erro ao conectar com o servidor. Verifique se o backend está rodando.');
     }
   });
 
@@ -98,15 +123,16 @@
     resultTitle.textContent = entry.analiseTecnica.isMDPM ? 'RESULTADO: É MDPM ✔' : 'RESULTADO: NÃO É MDPM ✘';
     resultReason.textContent = entry.analiseTecnica.reason;
     
-    // Exibir carimbo de auditoria e tabela de reconciliação se for MDPM
+    // Exibir carimbo de auditoria
     if (auditStamp) {
         auditStamp.innerHTML = `<strong>ID de Auditoria:</strong> ${entry.metadata.hashVerificacao} | <strong>Data:</strong> ${new Date(entry.metadata.timestamp).toLocaleString()}`;
     }
     
+    // Mostrar seção de reconciliação apenas se for MDPM
     if (entry.analiseTecnica.isMDPM) {
-        reconTable.classList.add('visible');
+        reconSection.classList.remove('hidden');
     } else {
-        reconTable.classList.remove('visible');
+        reconSection.classList.add('hidden');
     }
   }
 
@@ -114,43 +140,61 @@
   function generateNoteHtml(entry) {
     const isMDPM = entry.analiseTecnica.isMDPM;
     const reconHTML = entry.reconciliacao ? `
-        <div style="margin-top:20px; border:1px solid #0b62a4; padding:10px;">
-            <h4>Reconciliação Financeira (§123)</h4>
-            <p>Valor Bruto do Ajuste: R$ ${entry.reconciliacao.valorBruto}</p>
-            <p>Efeito IR/CSLL (34%): R$ ${entry.reconciliacao.efeitoIR}</p>
-            <p>Efeito em Participação de Não Controladores: R$ ${entry.reconciliacao.efeitoPNC}</p>
+        <div style="margin-top:20px; border:1px solid #0b62a4; padding:15px; border-radius:8px;">
+            <h4 style="margin-top:0; color:#0b62a4;">Detalhamento de Reconciliação (§123)</h4>
+            <table style="width:100%; border-collapse: collapse;">
+                <tr><td style="padding:5px 0;"><strong>Valor Bruto do Ajuste:</strong></td><td style="text-align:right;">R$ ${entry.reconciliacao.valorBruto}</td></tr>
+                <tr><td style="padding:5px 0;"><strong>Efeito IR/CSLL (34%):</strong></td><td style="text-align:right;">R$ ${entry.reconciliacao.efeitoIR}</td></tr>
+                <tr><td style="padding:5px 0;"><strong>Efeito em Participação de Não Controladores:</strong></td><td style="text-align:right;">R$ ${entry.reconciliacao.efeitoPNC || '0.00'}</td></tr>
+            </table>
         </div>
     ` : '';
 
     return `
       <html>
         <head>
-            <title>Relatório de Conformidade IFRS 18</title>
+            <meta charset="utf-8">
+            <title>Relatório de Conformidade IFRS 18 - ${entry.dadosMétrica.nome}</title>
             <style>
-                body { font-family: sans-serif; line-height: 1.6; padding: 40px; }
-                .header { border-bottom: 2px solid #0b62a4; margin-bottom: 20px; }
-                .audit-tag { font-family: monospace; font-size: 12px; color: #666; }
+                body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; padding: 40px; color: #333; }
+                .header { border-bottom: 2px solid #0b62a4; margin-bottom: 20px; padding-bottom: 10px; }
+                .audit-tag { font-family: monospace; font-size: 12px; color: #666; background: #f4f4f4; padding: 4px 8px; border-radius: 4px; }
+                h1 { color: #0b62a4; margin-bottom: 5px; }
+                .footer { margin-top: 50px; font-size: 11px; border-top: 1px solid #eee; padding-top: 10px; color: #888; }
+                .status-badge { display: inline-block; padding: 5px 12px; border-radius: 20px; font-weight: bold; background: ${isMDPM ? '#d4edda' : '#f8d7da'}; color: ${isMDPM ? '#155724' : '#721c24'}; }
             </style>
         </head>
         <body>
             <div class="header">
-                <h1>Relatório de Validação de Métrica (IFRS 18)</h1>
-                <p class="audit-tag">Protocolo de Auditoria: ${entry.metadata.hashVerificacao}</p>
+                <h1>Relatório de Validação de Métrica</h1>
+                <span class="audit-tag">Protocolo de Auditoria: ${entry.metadata.hashVerificacao}</span>
             </div>
-            <p><strong>Empresa:</strong> ${entry.metadata.empresa} (${entry.metadata.cvmID})</p>
-            <p><strong>Métrica Analisada:</strong> ${entry.dadosMétrica.nome}</p>
-            <p><strong>Resultado:</strong> ${isMDPM ? 'IDENTIFICADA COMO MPM' : 'NÃO CLASSIFICADA COMO MPM'}</p>
-            <p><strong>Fundamentação:</strong> ${entry.analiseTecnica.reason}</p>
+            
+            <p><strong>Empresa:</strong> ${entry.metadata.empresa} (CVM: ${entry.metadata.cvmID || 'N/A'})</p>
+            <p><strong>Período:</strong> ${entry.metadata.periodo || 'N/A'}</p>
+            <p><strong>Métrica Analisada:</strong> <span style="font-size: 1.2em; font-weight: bold;">${entry.dadosMétrica.nome}</span></p>
+            <p><strong>Resultado:</strong> <span class="status-badge">${isMDPM ? 'IDENTIFICADA COMO MPM' : 'NÃO CLASSIFICADA COMO MPM'}</span></p>
+            
+            <div style="background: #f9f9f9; padding: 15px; border-left: 5px solid #0b62a4; margin: 20px 0;">
+                <p><strong>Fundamentação Técnica (IFRS 18):</strong><br>${entry.analiseTecnica.reason}</p>
+            </div>
+
             ${reconHTML}
+
             <div style="margin-top:30px;">
-                <p><strong>Notas do Auditor:</strong> ${entry.notasJustificativa || 'Nenhuma observação adicional.'}</p>
+                <p><strong>Notas e Justificativas:</strong><br>${entry.notasJustificativa || 'Nenhuma observação adicional registrada.'}</p>
                 <p><strong>Auditor Responsável:</strong> ${entry.metadata.auditor}</p>
             </div>
-            <footer style="margin-top:50px; font-size:10px;">Gerado automaticamente pelo Protótipo de Pesquisa Orientada à Prática.</footer>
+
+            <div class="footer">
+                Este documento é uma saída do Protótipo de Pesquisa Orientada à Prática em IFRS 18. 
+                Gerado em: ${new Date(entry.metadata.timestamp).toLocaleString()}
+            </div>
         </body>
       </html>`;
   }
 
+  // Ações dos botões de saída
   generateBtn.addEventListener('click', () => {
     if (!lastEntry) return alert('Realize uma validação primeiro.');
     const win = window.open('', '_blank');
@@ -163,7 +207,10 @@
     const win = window.open('', '_blank');
     win.document.write(generateNoteHtml(lastEntry));
     win.document.close();
-    setTimeout(() => win.print(), 500);
+    setTimeout(() => {
+      win.focus();
+      win.print();
+    }, 600);
   });
 
 })();
