@@ -5,57 +5,35 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Protótipo IFRS 18 - Identificação MDPM</title>
   <link rel="stylesheet" href="styles.css" />
-  <style>
-    /* Estilos extras para os novos componentes de Governança e Auditoria */
-    .norm-ref { color: #0a86ff; font-weight: bold; cursor: help; margin-left: 5px; }
-    .audit-info { font-size: 0.8em; color: #666; margin-top: 10px; border-top: 1px solid #eee; padding-top: 5px; }
-    .reconciliation-table { width: 100%; border-collapse: collapse; margin-top: 15px; display: none; }
-    .reconciliation-table th, .reconciliation-table td { border: 1px solid #ddd; padding: 8px; text-align: left; font-size: 0.9em; }
-    .reconciliation-table th { background-color: #f4f4f4; }
-    .visible { display: table !important; }
-  </style>
 </head>
-
 <body>
   <main class="container">
-
     <header>
       <h1>Protótipo: Identificação de MDPM (IFRS 18)</h1>
-      <p class="subtitle">
-        Artefato Tecnológico para Governança Contábil e Julgamento Profissional.
-      </p>
-
-      <div class="mode-toggle">
-        <label for="modeSelect">Modo de Visualização:</label>
-        <select id="modeSelect">
-          <option value="executive">Executivo (Foco em Resultado)</option>
-          <option value="academic" selected>Acadêmico (Foco no Rigor Metodológico)</option>
-        </select>
-      </div>
+      <p class="subtitle">Artefato Tecnológico para Governança Contábil e Julgamento Profissional.</p>
     </header>
 
     <section class="panel">
-
       <div class="company-meta">
-        <div>
+        <div class="input-group">
             <label for="companyName">Nome da Empresa</label>
             <input id="companyName" type="text" placeholder="Ex.: Empresa S.A.">
         </div>
-        <div>
+        <div class="input-group">
             <label for="cvmCode">Código (CVM/ID)</label>
             <input id="cvmCode" type="text" placeholder="Ex.: 12345">
         </div>
-        <div>
+        <div class="input-group">
             <label for="reportPeriod">Período de Referência</label>
             <input id="reportPeriod" type="text" placeholder="Ex.: 30/09/2025">
         </div>
-        <div>
+        <div class="input-group">
             <label for="sector">Setor Econômico</label>
             <input id="sector" type="text" placeholder="Ex.: Tecnologia">
         </div>
-        <div>
+        <div class="input-group">
             <label for="auditor">Auditor Responsável</label>
-            <input id="auditor" type="text" placeholder="Ex.: Nome do Profissional/Firma">
+            <input id="auditor" type="text" placeholder="Ex.: Nome do Profissional">
         </div>
       </div>
 
@@ -65,86 +43,82 @@
       <input id="metricName" type="text" placeholder="Ex.: EBITDA Ajustado">
 
       <div class="questions">
-
         <div class="q">
           <div class="q-title">
             1) A métrica é um subtotal de receitas e despesas?
-            <span class="norm-ref" title="Referência: IFRS 18 parágrafo 117. MDPMs são subtotais de rendimentos e despesas.">(?)</span>
+            <span class="norm-ref" title="Referência: IFRS 18 parágrafo 117.">(?)</span>
           </div>
-          <div class="hint small">Ex: Lucro Operacional Ajustado • NÃO: métricas operacionais (ex.: churn, volume de vendas)</div>
+          <div class="hint small">Ex: Lucro Operacional Ajustado • NÃO: métricas operacionais (ex.: churn)</div>
           <div class="q-controls">
-            <button data-q="q1" data-val="true" class="btn-yes">Sim</button>
-            <button data-q="q1" data-val="false" class="btn-no">Não</button>
+            <button type="button" data-q="q1" data-val="true" class="btn-opt">Sim</button>
+            <button type="button" data-q="q1" data-val="false" class="btn-opt">Não</button>
           </div>
         </div>
 
         <div class="q">
           <div class="q-title">
             2) A métrica é utilizada publicamente pela administração?
-            <span class="norm-ref" title="Referência: IFRS 18 parágrafo 118. A comunicação fora das demonstrações financeiras (ex: releases) atrai a norma.">(?)</span>
+            <span class="norm-ref" title="Referência: IFRS 18 parágrafo 118.">(?)</span>
           </div>
-          <div class="hint small">Ex.: Divulgação em conferência de resultados, release, site de RI</div>
+          <div class="hint small">Ex.: Divulgação em conferência de resultados, release, site RI</div>
           <div class="q-controls">
-            <button data-q="q2" data-val="true" class="btn-yes">Sim</button>
-            <button data-q="q2" data-val="false" class="btn-no">Não</button>
+            <button type="button" data-q="q2" data-val="true" class="btn-opt">Sim</button>
+            <button type="button" data-q="q2" data-val="false" class="btn-opt">Não</button>
           </div>
         </div>
 
         <div class="q">
           <div class="q-title">
             3) A métrica está na lista de subtotais EXCLUÍDOS pela IFRS 18?
-            <span class="norm-ref" title="Referência: IFRS 18 parágrafos 118(b) e B21-B27. Lucro Bruto e EBIT não são MDPMs.">(?)</span>
+            <span class="norm-ref" title="Referência: IFRS 18 parágrafos B21-B27.">(?)</span>
           </div>
           <div class="hint small">Ex: Lucro Bruto, Lucro Líquido, EBIT, Resultado Operacional</div>
           <div class="q-controls">
-            <button data-q="q3" data-val="true" class="btn-yes">Sim</button>
-            <button data-q="q3" data-val="false" class="btn-no">Não</button>
+            <button type="button" data-q="q3" data-val="true" class="btn-opt">Sim</button>
+            <button type="button" data-q="q3" data-val="false" class="btn-opt">Não</button>
           </div>
         </div>
 
         <div class="q">
           <div class="q-title">
             4) A presunção de que a métrica expressa a visão da administração pode ser refutada?
-            <span class="norm-ref" title="Referência: IFRS 18 parágrafos 119-120. Requer evidência de que a métrica é imposta externamente.">(?)</span>
+            <span class="norm-ref" title="Referência: IFRS 18 parágrafos 119-120.">(?)</span>
           </div>
-          <div class="hint small">Ex.: Métrica exigida exclusivamente por um regulador e não usada internamente</div>
+          <div class="hint small">Ex.: Métrica exigida exclusivamente por regulador</div>
           <div class="q-controls">
-            <button data-q="q4" data-val="true" class="btn-yes">Sim (presunção refutada)</button>
-            <button data-q="q4" data-val="false" class="btn-no">Não</button>
+            <button type="button" data-q="q4" data-val="true" class="btn-opt">Sim (refutada)</button>
+            <button type="button" data-q="q4" data-val="false" class="btn-opt">Não</button>
           </div>
         </div>
-
       </div>
 
-      <div id="reconSection">
+      <div id="reconSection" class="hidden">
           <label>Dados para Reconciliação (§123 IFRS 18)</label>
           <table class="reconciliation-table" id="reconTable">
             <thead>
                 <tr>
                     <th>Descrição do Ajuste</th>
-                    <th>Valor Bruto</th>
-                    <th>Efeito IR (Est. 34%)</th>
-                    <th>Efeito PNC</th>
+                    <th>Valor Bruto (R$)</th>
+                    <th>Efeito IR (34%)</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td><input type="text" placeholder="Ex: Itens Não Recorrentes"></td>
-                    <td><input type="number" placeholder="0,00"></td>
-                    <td><input type="number" placeholder="Calculado"></td>
-                    <td><input type="number" placeholder="0,00"></td>
+                    <td><input type="text" id="adjDesc" placeholder="Ex: Reestruturação"></td>
+                    <td><input type="number" id="adjVal" placeholder="0.00"></td>
+                    <td><input type="text" id="adjTax" readonly placeholder="Automático"></td>
                 </tr>
             </tbody>
           </table>
       </div>
 
       <label for="notes">Justificativa do Julgamento Profissional</label>
-      <textarea id="notes" placeholder="Descreva os fundamentos para a classificação desta métrica..."></textarea>
+      <textarea id="notes" placeholder="Descreva os fundamentos..."></textarea>
 
       <div class="actions">
-        <button id="evaluateBtn" class="primary">Validar e Salvar em Log de Auditoria</button>
-        <button id="generateBtn" class="primary" style="background:#0bbf7b">Gerar Nota Explicativa (§122)</button>
-        <button id="printBtn" class="primary" style="background:#0a86ff">Exportar PDF de Conformidade</button>
+        <button id="evaluateBtn" class="primary">Validar e Salvar Log</button>
+        <button id="generateBtn" class="primary" style="background:#0bbf7b">Gerar Nota (§122)</button>
+        <button id="printBtn" class="primary" style="background:#0a86ff">Exportar PDF</button>
       </div>
 
       <div id="resultCard" class="result hidden">
@@ -152,25 +126,12 @@
         <div id="resultReason" class="result-reason"></div>
         <div class="audit-info" id="auditStamp"></div>
       </div>
-
     </section>
 
     <footer>
-      Framework Decisório IFRS 18 • Protótipo de Pesquisa Orientada à Prática • Replicável via DSRM
+      Framework Decisório IFRS 18 • Replicável via DSRM
     </footer>
-
   </main>
-
-  <script>
-    // Lógica para exibir a tabela de reconciliação apenas se for MDPM (para o artigo parecer inteligente)
-    document.getElementById('evaluateBtn').addEventListener('click', function() {
-        // Lógica simplificada para exemplo
-        const isMDPM = true; // Aqui entraria sua lógica de if/else das perguntas
-        if(isMDPM) {
-            document.getElementById('reconTable').classList.add('visible');
-            document.getElementById('auditStamp').innerText = "Hash de Auditoria: " + Math.random().toString(36).substring(7).toUpperCase() + " | Data: " + new Date().toLocaleString();
-        }
-    });
-  </script>
+  <script src="app.js"></script>
 </body>
 </html>
