@@ -2,13 +2,6 @@
   // Estado das respostas
   const qState = { q1: null, q2: null, q3: null, q4: null };
 
-  // IFRS 18 — subtotais que NÃO são MPM (excluídos)
-  const excludedList = [
-    "lucro bruto", "resultado bruto", "gross profit", "resultado operacional",
-    "operating profit", "ebit", "lucro líquido", "resultado líquido",
-    "net income", "resultado após impostos"
-  ];
-
   // Elementos de Metadados (Governança Corporativa)
   const companyNameInput = document.getElementById('companyName');
   const cvmCodeInput = document.getElementById('cvmCode');
@@ -66,16 +59,14 @@
       return;
     }
     
-    if (qState.q1 === null || qState.q2 === null) {
+    if (qState.q1 === null || qState.q2 === null || qState.q3 === null) {
       alert('Por favor, responda aos critérios da árvore de decisão.');
       return;
     }
 
-    // Auto-identificação de subtotais excluídos (Q3)
-    if (excludedList.some(e => metricName.toLowerCase().includes(e))) {
-      qState.q3 = true;
-      const q3BtnYes = document.querySelector('[data-q="q3"][data-val="true"]');
-      
+    evaluateBtn.textContent = "Processando Auditoria...";
+    evaluateBtn.disabled = true;
+
     const payload = {
       companyName: companyNameInput.value,
       cvmCode: cvmCodeInput.value,
@@ -113,7 +104,7 @@
 
   function exibirResultado(entry) {
     resultCard.classList.remove('hidden');
-    // Alterado MDPM -> MPM
+    // Sigla atualizada para MPM
     resultTitle.textContent = entry.analiseTecnica.isMDPM ? 'RESULTADO: É MPM ✔' : 'RESULTADO: NÃO É MPM ✘';
     resultReason.textContent = entry.analiseTecnica.reason;
     
@@ -130,7 +121,7 @@
   }
 
   function generateNoteHtml(entry) {
-    const isMPM = entry.analiseTecnica.isMDPM; // Mantido isMDPM aqui para não quebrar a conexão com o backend
+    const isMPM = entry.analiseTecnica.isMDPM;
     const reconHTML = entry.reconciliacao ? `
         <div style="margin-top:20px; border:1px solid #0b62a4; padding:15px; border-radius:8px; background:#f0f7ff;">
             <h4 style="margin-top:0; color:#0b62a4;">Detalhamento de Reconciliação Financeira (§123)</h4>
@@ -171,18 +162,22 @@
       </html>`;
   }
 
-  generateBtn.addEventListener('click', () => {
-    if (!lastEntry) return alert('Realize uma validação primeiro.');
-    const win = window.open('', '_blank');
-    win.document.write(generateNoteHtml(lastEntry));
-    win.document.close();
-  });
+  if (generateBtn) {
+    generateBtn.addEventListener('click', () => {
+        if (!lastEntry) return alert('Realize uma validação primeiro.');
+        const win = window.open('', '_blank');
+        win.document.write(generateNoteHtml(lastEntry));
+        win.document.close();
+    });
+  }
 
-  printBtn.addEventListener('click', () => {
-    if (!lastEntry) return alert('Realize uma validação primeiro.');
-    const win = window.open('', '_blank');
-    win.document.write(generateNoteHtml(lastEntry));
-    win.document.close();
-    setTimeout(() => { win.focus(); win.print(); }, 600);
-  });
+  if (printBtn) {
+    printBtn.addEventListener('click', () => {
+        if (!lastEntry) return alert('Realize uma validação primeiro.');
+        const win = window.open('', '_blank');
+        win.document.write(generateNoteHtml(lastEntry));
+        win.document.close();
+        setTimeout(() => { win.focus(); win.print(); }, 600);
+    });
+  }
 })();
