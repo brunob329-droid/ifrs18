@@ -33,7 +33,7 @@
       
       qState[q] = val;
       
-      // Feedback Visual: Garante a classe .active para o CSS brilhar
+      // Feedback Visual: Garante a classe .active para o CSS
       const parent = e.target.closest('.q-controls');
       parent.querySelectorAll('button').forEach(b => b.classList.remove('active'));
       e.target.classList.add('active');
@@ -59,8 +59,9 @@
       return;
     }
     
+    // Validação de preenchimento manual (Julgamento Profissional)
     if (qState.q1 === null || qState.q2 === null || qState.q3 === null) {
-      alert('Por favor, responda aos critérios da árvore de decisão.');
+      alert('Por favor, responda aos critérios da árvore de decisão manualmente.');
       return;
     }
 
@@ -79,7 +80,7 @@
       q3_isExcluded: qState.q3,
       q4_presumptionRefutable: qState.q4,
       ajusteValorBruto: adjValInput?.value || 0,
-      notes: notesInput.value
+      notes: notesInput.value // Captura a Justificativa do Julgamento Profissional
     };
 
     try {
@@ -95,7 +96,7 @@
         exibirResultado(data.entry);
       }
     } catch (err) {
-      alert('Servidor em standby. Tente novamente em 30 segundos.');
+      alert('Servidor em standby. Tente novamente em breve.');
     } finally {
       evaluateBtn.textContent = "Validar e Salvar Log";
       evaluateBtn.disabled = false;
@@ -104,7 +105,7 @@
 
   function exibirResultado(entry) {
     resultCard.classList.remove('hidden');
-    // Sigla atualizada para MPM
+    // Sigla padronizada para MPM
     resultTitle.textContent = entry.analiseTecnica.isMDPM ? 'RESULTADO: É MPM ✔' : 'RESULTADO: NÃO É MPM ✘';
     resultReason.textContent = entry.analiseTecnica.reason;
     
@@ -112,7 +113,6 @@
         auditStamp.innerHTML = `<strong>ID de Auditoria:</strong> ${entry.metadata.hashVerificacao} | <strong>Data:</strong> ${new Date(entry.metadata.timestamp).toLocaleString()}`;
     }
     
-    // Mostra/Oculta seção de reconciliação (§123)
     if (entry.analiseTecnica.isMDPM) {
         reconSection.classList.remove('hidden');
     } else {
@@ -120,48 +120,90 @@
     }
   }
 
+  // Geração da Nota Explicativa Bilíngue (Conforme imagem_c6bf85.png)
   function generateNoteHtml(entry) {
     const isMPM = entry.analiseTecnica.isMDPM;
-    const reconHTML = entry.reconciliacao ? `
-        <div style="margin-top:20px; border:1px solid #0b62a4; padding:15px; border-radius:8px; background:#f0f7ff;">
-            <h4 style="margin-top:0; color:#0b62a4;">Detalhamento de Reconciliação Financeira (§123)</h4>
-            <table style="width:100%; border-collapse: collapse;">
-                <tr><td style="padding:5px 0;"><strong>Ajuste Bruto:</strong></td><td style="text-align:right;">R$ ${entry.reconciliacao.valorBruto}</td></tr>
-                <tr><td style="padding:5px 0;"><strong>Efeito IR/CSLL (34%):</strong></td><td style="text-align:right;">R$ ${entry.reconciliacao.efeitoIR}</td></tr>
-                <tr><td style="padding:5px 0;"><strong>Efeito PNC:</strong></td><td style="text-align:right;">R$ ${entry.reconciliacao.efeitoPNC || '0.00'}</td></tr>
-            </table>
-        </div>
-    ` : '';
-
+    
     return `
       <html>
         <head>
             <meta charset="utf-8">
-            <title>Auditoria IFRS 18 - ${entry.dadosMétrica.nome}</title>
+            <title>Nota Explicativa MPM - ${entry.metadata.empresa}</title>
             <style>
-                body { font-family: 'Segoe UI', Arial; line-height: 1.6; padding: 40px; color: #333; }
-                .header { border-bottom: 3px solid #0b62a4; margin-bottom: 20px; padding-bottom: 10px; }
-                .audit-tag { font-family: monospace; font-size: 11px; color: #666; background: #eee; padding: 3px 6px; }
-                .status { display: inline-block; padding: 6px 12px; border-radius: 4px; font-weight: bold; 
-                          background: ${isMPM ? '#d4edda' : '#f8d7da'}; color: ${isMPM ? '#155724' : '#721c24'}; }
+                body { font-family: 'Segoe UI', Arial, sans-serif; line-height: 1.4; padding: 30px; color: #333; }
+                .header-table { width: 100%; border-bottom: 2px solid #000; margin-bottom: 10px; }
+                .columns { display: flex; gap: 40px; margin-top: 20px; }
+                .col { flex: 1; font-size: 12px; }
+                h1 { font-size: 18px; color: #0b62a4; margin: 0; }
+                h2 { font-size: 13px; margin: 15px 0 5px 0; border-bottom: 1px solid #ccc; font-weight: bold; text-transform: uppercase; }
+                .evidence-box { margin-top: 25px; padding: 15px; border: 1px solid #ddd; background: #fdfdfd; font-size: 11px; line-height: 1.6; border-left: 4px solid #0b62a4; }
+                .audit-info { text-align: right; font-size: 10px; color: #666; font-family: monospace; }
+                ul { padding-left: 18px; margin: 5px 0; }
+                li { margin-bottom: 3px; }
             </style>
         </head>
         <body>
-            <div class="header">
-                <h1>Nota de Conformidade Normativa</h1>
-                <span class="audit-tag">HASH: ${entry.metadata.hashVerificacao}</span>
+            <div class="header-table">
+                <table style="width:100%">
+                    <tr>
+                        <td><h1>Nota Explicativa: MPM</h1></td>
+                        <td class="audit-info">UID: ${entry.metadata.hashVerificacao}<br>${new Date(entry.metadata.timestamp).toLocaleString()}</td>
+                    </tr>
+                </table>
             </div>
-            <p><strong>Empresa:</strong> ${entry.metadata.empresa} | <strong>Auditor:</strong> ${entry.metadata.auditor}</p>
-            <p><strong>Métrica:</strong> ${entry.dadosMétrica.nome} <span class="status">${isMPM ? 'MPM CONFIRMADA' : 'NÃO MPM'}</span></p>
-            <div style="background:#f9f9f9; padding:15px; border-left:5px solid #0b62a4;">
-                <strong>Justificativa Técnica:</strong><br>${entry.analiseTecnica.reason}
+
+            <div class="columns">
+                <div class="col">
+                    <h2>Português (PT-BR)</h2>
+                    <strong>Empresa:</strong> ${entry.metadata.empresa}<br>
+                    <strong>Período de reporte:</strong> ${entry.metadata.periodo || 'N/A'}<br>
+                    <strong>Setor:</strong> ${entry.metadata.setor || 'N/A'}<br>
+                    <strong>Auditor responsável:</strong> ${entry.metadata.auditor}<br>
+                    
+                    <h2>Justificativa</h2>
+                    <p>A métrica passou por todos os filtros e é classificada como MPM (Medida de Desempenho da Administração), exigindo divulgação e reconciliação conforme IFRS 18.</p>
+                    
+                    <h2>Requisitos de divulgação (IFRS 18)</h2>
+                    <ul>
+                        <li>Explicação de porque a métrica reflete a visão da administração.</li>
+                        <li>Reconciliar a métrica com o subtotal IFRS comparável (§123).</li>
+                        <li>Fornecer período e comparativos (quando aplicável).</li>
+                    </ul>
+                </div>
+
+                <div class="col">
+                    <h2>English (EN)</h2>
+                    <strong>Company:</strong> ${entry.metadata.empresa}<br>
+                    <strong>Reporting period:</strong> ${entry.metadata.periodo || 'N/A'}<br>
+                    <strong>Sector:</strong> ${entry.metadata.setor || 'N/A'}<br>
+                    <strong>Auditor:</strong> ${entry.metadata.auditor}<br>
+                    
+                    <h2>Rationale</h2>
+                    <p>The measure passed all mandatory filters and is classified as MPM, requiring disclosure and reconciliation per IFRS 18 standards.</p>
+                    
+                    <h2>Disclosure requirements (IFRS 18)</h2>
+                    <ul>
+                        <li>Explain why the measure conveys management's view.</li>
+                        <li>Reconcile the measure to the comparable IFRS subtotal (§123).</li>
+                        <li>Provide period and comparatives (when applicable).</li>
+                    </ul>
+                </div>
             </div>
-            ${reconHTML}
-            <p style="margin-top:20px; font-size:12px; color:#666;">Gerado via Protótipo de Governança IFRS 18 - Data: ${new Date(entry.metadata.timestamp).toLocaleString()}</p>
+
+            <div class="evidence-box">
+                <strong>Evidence / Notes (Julgamento Profissional):</strong><br>
+                <em>"${entry.dadosMétrica.notasAdicionais || 'Nenhum detalhamento de evidência inserido pelo auditor.'}"</em>
+            </div>
+
+            <p style="font-size: 9px; color: #888; margin-top: 30px; text-align: center; border-top: 1px inset #eee; padding-top: 10px;">
+                Gerado via Protótipo de Governança IFRS 18 - Rastreabilidade garantida via ID de Auditoria. 
+                Sustentação do julgamento profissional verificável por terceiros [cite: 2026-02-24].
+            </p>
         </body>
       </html>`;
   }
 
+  // Eventos de Geração de Nota e Impressão
   if (generateBtn) {
     generateBtn.addEventListener('click', () => {
         if (!lastEntry) return alert('Realize uma validação primeiro.');
