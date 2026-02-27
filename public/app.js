@@ -75,16 +75,7 @@
     if (excludedList.some(e => metricName.toLowerCase().includes(e))) {
       qState.q3 = true;
       const q3BtnYes = document.querySelector('[data-q="q3"][data-val="true"]');
-      if (q3BtnYes) {
-        const parent = q3BtnYes.closest('.q-controls');
-        parent.querySelectorAll('button').forEach(b => b.classList.remove('active'));
-        q3BtnYes.classList.add('active');
-      }
-    }
-
-    evaluateBtn.textContent = "Processando Auditoria...";
-    evaluateBtn.disabled = true;
-
+      
     const payload = {
       companyName: companyNameInput.value,
       cvmCode: cvmCodeInput.value,
