@@ -2,7 +2,7 @@
   // Estado das respostas
   const qState = { q1: null, q2: null, q3: null, q4: null };
 
-  // IFRS 18 — subtotais que NÃO são MDPM (excluídos)
+  // IFRS 18 — subtotais que NÃO são MPM (excluídos)
   const excludedList = [
     "lucro bruto", "resultado bruto", "gross profit", "resultado operacional",
     "operating profit", "ebit", "lucro líquido", "resultado líquido",
@@ -122,7 +122,8 @@
 
   function exibirResultado(entry) {
     resultCard.classList.remove('hidden');
-    resultTitle.textContent = entry.analiseTecnica.isMDPM ? 'RESULTADO: É MDPM ✔' : 'RESULTADO: NÃO É MDPM ✘';
+    // Alterado MDPM -> MPM
+    resultTitle.textContent = entry.analiseTecnica.isMDPM ? 'RESULTADO: É MPM ✔' : 'RESULTADO: NÃO É MPM ✘';
     resultReason.textContent = entry.analiseTecnica.reason;
     
     if (auditStamp) {
@@ -138,7 +139,7 @@
   }
 
   function generateNoteHtml(entry) {
-    const isMDPM = entry.analiseTecnica.isMDPM;
+    const isMPM = entry.analiseTecnica.isMDPM; // Mantido isMDPM aqui para não quebrar a conexão com o backend
     const reconHTML = entry.reconciliacao ? `
         <div style="margin-top:20px; border:1px solid #0b62a4; padding:15px; border-radius:8px; background:#f0f7ff;">
             <h4 style="margin-top:0; color:#0b62a4;">Detalhamento de Reconciliação Financeira (§123)</h4>
@@ -160,7 +161,7 @@
                 .header { border-bottom: 3px solid #0b62a4; margin-bottom: 20px; padding-bottom: 10px; }
                 .audit-tag { font-family: monospace; font-size: 11px; color: #666; background: #eee; padding: 3px 6px; }
                 .status { display: inline-block; padding: 6px 12px; border-radius: 4px; font-weight: bold; 
-                          background: ${isMDPM ? '#d4edda' : '#f8d7da'}; color: ${isMDPM ? '#155724' : '#721c24'}; }
+                          background: ${isMPM ? '#d4edda' : '#f8d7da'}; color: ${isMPM ? '#155724' : '#721c24'}; }
             </style>
         </head>
         <body>
@@ -169,7 +170,7 @@
                 <span class="audit-tag">HASH: ${entry.metadata.hashVerificacao}</span>
             </div>
             <p><strong>Empresa:</strong> ${entry.metadata.empresa} | <strong>Auditor:</strong> ${entry.metadata.auditor}</p>
-            <p><strong>Métrica:</strong> ${entry.dadosMétrica.nome} <span class="status">${isMDPM ? 'MDPM CONFIRMADA' : 'NÃO MDPM'}</span></p>
+            <p><strong>Métrica:</strong> ${entry.dadosMétrica.nome} <span class="status">${isMPM ? 'MPM CONFIRMADA' : 'NÃO MPM'}</span></p>
             <div style="background:#f9f9f9; padding:15px; border-left:5px solid #0b62a4;">
                 <strong>Justificativa Técnica:</strong><br>${entry.analiseTecnica.reason}
             </div>
